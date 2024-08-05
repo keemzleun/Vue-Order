@@ -13,7 +13,7 @@
                             <v-text-field
                                 label="이름"
                                 v-model="name"
-                                prepend-icon="mdi-name"
+                                prepend-icon="mdi-account"
                                 required
                             ></v-text-field>
                             <v-text-field
@@ -68,8 +68,8 @@ export default{
             password:"",
             city:"",
             street:"",
-            zipcode:"",
-            
+            zipcode:""
+
         }
     },
     methods: {
@@ -79,18 +79,21 @@ export default{
                     name: this.name,
                     email: this.email,
                     password: this.password,
-                    city: this.city,
-                    street: this.street,
-                    zipcode: this.zipcode
+                    address: {
+                        city: this.city,
+                        street: this.street,
+                        zipcode: this.zipcode
+                    } 
                 }
-
                 // async, await가 없다면 우선 post를 던져두고 바로 push로 넘어가버
-                await axios.post('http://localhost:8080/member/create', registerData);
-                this.$route.push("/");
+                await axios.post(`${process.env.VUE_APP_API_BASE_URL}/member/create`, registerData);
+                this.$router.push("/");
             } catch (e) {
-                console.log(e);
+                const error_message = e.response.data.error_message;
+                console.log(error_message);
+                alert(error_message);
+                
             }
-
         }
     }
 }

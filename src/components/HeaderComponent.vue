@@ -20,7 +20,7 @@
                   <v-btn v-if="isLogin" :to="{path:'/mypage'}">MyPage</v-btn>
                   <v-btn v-if="!isLogin" :to="{path:'/member/create'}">회원가입</v-btn>
                   <v-btn v-if="!isLogin" :to="{path:'/login'}">로그인</v-btn>
-                  <v-btn v-if="isLogin" :to="{path:'/logout'}">로그아웃</v-btn>
+                  <v-btn v-if="isLogin" @click="doLogout">로그아웃</v-btn>
                   
                </v-col>
 
@@ -38,6 +38,19 @@ export default{
       return {
          userRole: null,
          isLogin: false
+      }
+   },
+   created(){
+      const token = localStorage.getItem("token");
+      if(token){
+         this.isLogin = true;
+         this.userRole = localStorage.getItem("role");
+      }
+   },
+   methods:{
+      doLogout(){
+         localStorage.clear();
+         window.location.reload();
       }
    }
 };
