@@ -6,6 +6,7 @@ import { createRouter, createWebHistory } from "vue-router"
 // import TestComponent from "@/components/TestComponent.vue";
 
 import { practiceRouter } from './practiceRouter';
+import { memberRouter } from './memberRouter';
 
 const routes = [
     // {
@@ -20,7 +21,8 @@ const routes = [
     //     name: 'TEST',
     //     component: TestComponent
     // }
-    ...practiceRouter
+    ...practiceRouter,
+    ...memberRouter
 
 ]
 const router = createRouter({
