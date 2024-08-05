@@ -7,7 +7,7 @@
 
     <h1>상품목록조회</h1>
     <ul>
-        <!-- v-for에서는 반드시 key값을 지정. key를 지정함으로서 각 요소마다의 고유식별 -->
+        <!-- `v-for`에서는 반드시 key값을 지정. key를 지정함으로서 각 요소마다의 고유식별 -->
         <li v-for="product in products" :key="product.id">{{ product.name }}</li>
     </ul>
 </template>
