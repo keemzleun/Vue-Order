@@ -28,7 +28,7 @@
                             <v-row>
                                 <v-col cols="6">
                                     <!-- block은 부모 컨테이너 너비만큼 채우는 것 -->
-                                    <v-btn color="red" block>비밀번호 변경</v-btn>
+                                    <v-btn color="red" @click="showPasswordModal" block>비밀번호 변경</v-btn>
                                 </v-col>
                                 <v-col cols="6">
                                     <v-btn type="submit" color="primary" block>로그인</v-btn>
@@ -41,16 +41,32 @@
                 </v-card>
             </v-col>
         </v-row>
+        <!-- resetPassword가 true가 될 때 해당 모달창이 보여짐 -->
+         <!-- update:dialog는 model 컴포넌트가 update:dialog라는 이벤트를 발생시킬 때 실행될 이벤트 핸들러를 정의 -->
+          <!-- $event는 자식요소로부터 전달된 값. true/false가 모달로부터 전달 -->
+        <ResetPasswordModal
+            v-model="resetPassword"
+            @update:dialog="resetPassword = $event"
+        >
+    
+        </ResetPasswordModal>
+
     </v-container>
 </template>
 <script>
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import ResetPasswordModal from './ResetPasswordModal.vue';
+
 export default{
+    components:{
+        ResetPasswordModal
+    },
     data(){
         return{
            email:"",
-           password:""
+           password:"",
+           resetPassword:false
 
         }
     },
@@ -60,7 +76,8 @@ export default{
             try {
                 const loginData = {
                     email: this.email,
-                    password: this.password
+                    password: this.password,
+                    resetPassword: false
                 }
                 const response = await axios.post(`${process.env.VUE_APP_API_BASE_URL}/doLogin`, loginData);
                 // console.log(response.data.result.token);
@@ -77,6 +94,9 @@ export default{
             } catch(e){
                 console.log(e);
             }
+        },
+        showPasswordModal(){
+            this.resetPassword = true;
         }
     }
 }

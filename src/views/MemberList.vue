@@ -31,11 +31,17 @@ export default{
         }
     },
     async created(){
-        const token = localStorage.getItem('token');
-        const headers = {Authorization : `Bearer ${token}`};
+        // const token = localStorage.getItem('token');
+        // const headers = {Authorization : `Bearer ${token}`};
         // {"headers" : {"Authorization": 'Bearer 토큰값'}, ...}
-        const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/member/list`, {"headers":headers});
-        this.memberList = response.data.result.content;
+        // const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/member/list`, {"headers":headers});
+        try{
+            const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/member/list`);
+            this.memberList = response.data.result.content;
+        }catch(e){
+            console.log(e);
+        }
+        
     }
 }
 </script>
