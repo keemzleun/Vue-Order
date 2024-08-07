@@ -18,7 +18,7 @@
                             ></v-text-field>
                             <v-text-field
                                 label="email"
-                                v-model="email"
+                                v-model="email"ja
                                 prepend-icon="mdi-email"
                                 type="email"
                                 required

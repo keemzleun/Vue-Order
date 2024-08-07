@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-row>
+        <v-row justify="center">
             <v-col>
                 <v-card>
                     <v-card-title class="text-center text-h5">
@@ -10,9 +10,7 @@
                         <v-data-table
                             :headers="tableHeaders"
                             :items="memberList"
-                        >
-
-                        </v-data-table>
+                        ></v-data-table>
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -26,7 +24,9 @@ export default{
         return{
             tableHeaders:[{title:'ID', key:'id', align:'start'},
                             {title:'NAME', key:'name', align:'start'},
-                            {title:'EMAIL', key:'email', align:'start'}],
+                            {title:'EMAIL', key:'email', align:'start'},
+                            {title:'주문수량', key:'orderCount', align:'start'}],
+
             memberList:[]
         }
     },

@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default{
     data(){
         return{
@@ -45,8 +47,22 @@ export default{
         }
     },
     methods:{
-        resetPassword(){
-
+        async resetPassword(){
+            // {body} => body : {email:xxx, ...}
+            // body => {email: xxx, ...}
+            const body = {
+                email:this.email,
+                asIsPassword:this.asIsPassword,
+                toBePassword:this.toBePassword
+            }
+            try {
+                const response = await axios.patch(`${process.env.VUE_APP_API_BASE_URL}/member/reset-password`, body);
+                alert(response.data.status_message);
+                alert("정상적으로 처리되었습니다.");
+            }catch(e){
+                console.log(e);
+                alert(e.response?.data?.error_message || "입력값을 확인해주세요")
+            }
         },
         closeModal(){
             // this.emit은 vue에서 컴포넌트간의 이벤트를 전달하는 메커니즘
