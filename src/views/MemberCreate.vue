@@ -18,7 +18,7 @@
                             ></v-text-field>
                             <v-text-field
                                 label="email"
-                                v-model="email"ja
+                                v-model="email"
                                 prepend-icon="mdi-email"
                                 type="email"
                                 required
@@ -91,8 +91,7 @@ export default{
             } catch (e) {
                 const error_message = e.response.data.error_message;
                 console.log(error_message);
-                alert(error_message);
-                
+                alert(error_message);   
             }
         }
     }
