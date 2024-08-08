@@ -28,7 +28,7 @@
 
             </v-col>
             <v-col cols="auto" v-if="!isAdmin">
-                <v-btn color="secondary" class="mr-2">장바구니</v-btn>
+                <v-btn color="secondary" class="mr-2" @click="addCart">장바구니</v-btn>
                 <v-btn @click="createOrder" color="success">주문하기</v-btn>
             </v-col>
             <v-col cols="auto" v-if="isAdmin">
@@ -89,6 +89,7 @@
 </template>
 <script>
 import axios from 'axios';
+import {mapGetters} from 'vuex';
 export default{
     props: ["isAdmin", "pageTitle"],
     data(){
@@ -111,6 +112,9 @@ export default{
             // {1:true, 2:false, ...} 이런식으로 담기게 됨
             selected:{}
         }
+    },
+    computed:{  // 참조하고 잇는 변수값이 변경됐을 때 실행되는 함수
+        ...mapGetters(['getCarts'])
     },
     created(){
         this.loadProduct();
@@ -169,6 +173,16 @@ export default{
             if (isBottom && !this.isLastPage && !this.isLoading){
                 this.loadProduct();
             }
+        },
+        addCart(){
+            const orderProducts = Object.keys(this.selected).filter(key=>this.selected[key])
+                                .map(key=>{
+                                    const product = this.productList.find(p => p.id == key);
+                                    return {id:product.id, name:product.name, quantity:product.quantity};
+                                });
+            orderProducts.forEach(p=>this.$store.dispatch('addCart', p));
+            console.log(this.getCarts);
+            // window.location.reload();
         },
         async createOrder(){
             const orderProducts = Object.keys(this.selected).filter(key=>this.selected[key])
