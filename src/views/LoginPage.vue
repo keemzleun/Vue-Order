@@ -90,6 +90,9 @@ export default{
                 localStorage.setItem('refreshToken', refreshToken);
                 localStorage.setItem('role', role);
                 // this.$router.push("/");
+
+                // sse를 위한 연결 코드
+                
                 window.location.href="/";
             } catch(e){
                 console.log(e);
